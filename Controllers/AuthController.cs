@@ -113,14 +113,15 @@ namespace API.Controllers
             return new string(chars);
         }
 
-        internal static bool ValidateToken(string token, DatabaseConnection context)
-        {
-            if (string.IsNullOrWhiteSpace(token))
-                return false;
+        // ЛИШНИЙ КОД
+        //internal static bool ValidateToken(string token, DatabaseConnection context)
+        //{
+        //    if (string.IsNullOrWhiteSpace(token))
+        //        return false;
 
-            // Проверка существования пользователя с таким токеном
-            var user = context.Users.FirstOrDefault(u => u.Token == token);
-            return user != null;
-        }
+        //    // Проверка существования пользователя с таким токеном
+        //    var user = context.Users.FirstOrDefault(u => u.Token == token);
+        //    return user != null;
+        //}
     }
 }

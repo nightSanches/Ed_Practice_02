@@ -368,68 +368,70 @@ namespace API.Controllers
                     c.ResponsibleUserId == userId || c.TempResponsibleUserId == userId);
         }
 
-        private string? ValidateUser(User user)
-        {
-            // Проверка обязательных полей
-            if (string.IsNullOrWhiteSpace(user.Username))
-            {
-                return "Логин обязателен для заполнения";
-            }
 
-            if (string.IsNullOrWhiteSpace(user.Password))
-            {
-                return "Пароль обязателен для заполнения";
-            }
+        // ЛИШНИЙ КОД
+        //private string? ValidateUser(User user)
+        //{
+        //    // Проверка обязательных полей
+        //    if (string.IsNullOrWhiteSpace(user.Username))
+        //    {
+        //        return "Логин обязателен для заполнения";
+        //    }
 
-            if (string.IsNullOrWhiteSpace(user.LastName))
-            {
-                return "Фамилия обязательна для заполнения";
-            }
+        //    if (string.IsNullOrWhiteSpace(user.Password))
+        //    {
+        //        return "Пароль обязателен для заполнения";
+        //    }
 
-            if (string.IsNullOrWhiteSpace(user.FirstName))
-            {
-                return "Имя обязательно для заполнения";
-            }
+        //    if (string.IsNullOrWhiteSpace(user.LastName))
+        //    {
+        //        return "Фамилия обязательна для заполнения";
+        //    }
 
-            // Проверка формата логина
-            if (!Regex.IsMatch(user.Username, @"^[a-zA-Z0-9_]+$"))
-            {
-                return "Логин может содержать только буквы, цифры и символ подчеркивания";
-            }
+        //    if (string.IsNullOrWhiteSpace(user.FirstName))
+        //    {
+        //        return "Имя обязательно для заполнения";
+        //    }
 
-            // Проверка роли
-            if (!Regex.IsMatch(user.Role, @"^(employee|teacher|administrator)$"))
-            {
-                return "Роль должна быть: employee, teacher или administrator";
-            }
+        //    // Проверка формата логина
+        //    if (!Regex.IsMatch(user.Username, @"^[a-zA-Z0-9_]+$"))
+        //    {
+        //        return "Логин может содержать только буквы, цифры и символ подчеркивания";
+        //    }
 
-            // Проверка email если указан
-            if (!string.IsNullOrWhiteSpace(user.Email))
-            {
-                try
-                {
-                    var email = new System.Net.Mail.MailAddress(user.Email);
-                    if (email.Address != user.Email)
-                    {
-                        return "Некорректный формат email";
-                    }
-                }
-                catch
-                {
-                    return "Некорректный формат email";
-                }
-            }
+        //    // Проверка роли
+        //    if (!Regex.IsMatch(user.Role, @"^(employee|teacher|administrator)$"))
+        //    {
+        //        return "Роль должна быть: employee, teacher или administrator";
+        //    }
 
-            // Проверка телефона если указан
-            if (!string.IsNullOrWhiteSpace(user.Phone))
-            {
-                if (!Regex.IsMatch(user.Phone, @"^[\d\s\-\+\(\)]+$"))
-                {
-                    return "Телефон может содержать только цифры, пробелы, тире, плюс и скобки";
-                }
-            }
+        //    // Проверка email если указан
+        //    if (!string.IsNullOrWhiteSpace(user.Email))
+        //    {
+        //        try
+        //        {
+        //            var email = new System.Net.Mail.MailAddress(user.Email);
+        //            if (email.Address != user.Email)
+        //            {
+        //                return "Некорректный формат email";
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            return "Некорректный формат email";
+        //        }
+        //    }
 
-            return null;
-        }
+        //    // Проверка телефона если указан
+        //    if (!string.IsNullOrWhiteSpace(user.Phone))
+        //    {
+        //        if (!Regex.IsMatch(user.Phone, @"^[\d\s\-\+\(\)]+$"))
+        //        {
+        //            return "Телефон может содержать только цифры, пробелы, тире, плюс и скобки";
+        //        }
+        //    }
+
+        //    return null;
+        //}
     }
 }

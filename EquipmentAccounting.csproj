@@ -6,12 +6,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\icon.ico</ApplicationIcon>
   </PropertyGroup>
 	
 	<ItemGroup>
 		<None Remove="Images\default-equipment.png" />
 		<None Remove="Images\key-icon.png" />
 		<None Remove="Images\user-icon.png" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Content Include="Images\icon.ico" />
 	</ItemGroup>
 
 	<ItemGroup>

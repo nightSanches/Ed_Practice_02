@@ -45,7 +45,7 @@
                          KeyDown="txtUser_KeyDown">
 
                     <TextBox.Background>
-                        <ImageBrush ImageSource="/testEquipmentAccounting;component/Images/user-icon.png"
+                        <ImageBrush ImageSource="/EquipmentAccounting;component/Images/user-icon.png"
                             Stretch="None"
                             AlignmentX="Left"/>
                     </TextBox.Background>
@@ -73,7 +73,7 @@
                          KeyDown="txtPass_KeyDown">
 
                     <PasswordBox.Background>
-                        <ImageBrush ImageSource="/testEquipmentAccounting;component/Images/key-icon.png"
+                        <ImageBrush ImageSource="/EquipmentAccounting;component/Images/key-icon.png"
                                         Stretch="None"
                                         AlignmentX="Left"/>
                     </PasswordBox.Background>

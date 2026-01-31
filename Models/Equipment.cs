@@ -20,7 +20,6 @@ namespace API.Models
 
         [Required(ErrorMessage = "Инвентарный номер обязателен для заполнения")]
         [Column("inventory_number")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Инвентарный номер должен содержать только цифры")]
         public int InventoryNumber { get; set; }
 
         [Column("room_id")]

@@ -33,7 +33,6 @@ namespace API.Models
         public int? TempResponsibleUserId { get; set; }
 
         [Column("cost", TypeName = "decimal(10,2)")]
-        [Range(0, double.MaxValue, ErrorMessage = "Стоимость не может быть отрицательной")]
         public decimal? Cost { get; set; }
 
         [Column("direction_id")]

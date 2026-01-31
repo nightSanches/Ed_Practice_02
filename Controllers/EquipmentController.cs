@@ -112,13 +112,6 @@ namespace API.Controllers
                 return Unauthorized("Недостаточно прав для выполнения операции");
             }
 
-            // Валидация
-            var validationResult = ValidateEquipment(equipment);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
-
             // Проверка уникальности инвентарного номера
             if (await _context.Equipment.AnyAsync(e => e.InventoryNumber == equipment.InventoryNumber))
             {
@@ -153,13 +146,6 @@ namespace API.Controllers
             if (id != equipment.Id)
             {
                 return BadRequest("ID в пути и в теле запроса не совпадают");
-            }
-
-            // Валидация
-            var validationResult = ValidateEquipment(equipment);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
             }
 
             // Проверка уникальности инвентарного номера (исключая текущую запись)
@@ -255,43 +241,6 @@ namespace API.Controllers
         private bool EquipmentExists(int id)
         {
             return _context.Equipment.Any(e => e.Id == id);
-        }
-
-        private string? ValidateEquipment(Equipment equipment)
-        {
-            // Проверка обязательных полей
-            if (string.IsNullOrWhiteSpace(equipment.Name))
-            {
-                return "Наименование оборудования обязательно для заполнения";
-            }
-
-            if (equipment.InventoryNumber <= 0)
-            {
-                return "Инвентарный номер должен быть положительным числом";
-            }
-
-            // Проверка формата инвентарного номера (только цифры)
-            if (!Regex.IsMatch(equipment.InventoryNumber.ToString(), @"^\d+$"))
-            {
-                return "Инвентарный номер должен содержать только цифры";
-            }
-
-            // Проверка стоимости (если указана)
-            if (equipment.Cost.HasValue)
-            {
-                if (equipment.Cost.Value < 0)
-                {
-                    return "Стоимость не может быть отрицательной";
-                }
-
-                // Проверка что в стоимости только цифры и точка
-                if (!Regex.IsMatch(equipment.Cost.Value.ToString(), @"^\d+$"))
-                {
-                    return "Стоимость должна содержать только цифры";
-                }
-            }
-
-            return null;
         }
     }
 }

@@ -167,7 +167,7 @@ namespace EquipmentAccounting.Pages.Equipment
                 //сделать добавление фото
 
                 if(!string.IsNullOrWhiteSpace(cost.Text))
-                    equipment.Cost = Convert.ToInt32(cost.Text);
+                    equipment.Cost = Convert.ToDecimal(cost.Text);
                 else equipment.Cost = null;
 
                 if (!string.IsNullOrWhiteSpace(comment.Text))
@@ -216,7 +216,7 @@ namespace EquipmentAccounting.Pages.Equipment
                 //сделать добавление фото
 
                 if (!string.IsNullOrWhiteSpace(cost.Text))
-                    equipment.Cost = Convert.ToInt32(cost.Text);
+                    equipment.Cost = Convert.ToDecimal(cost.Text);
                 else equipment.Cost = null;
 
                 if (!string.IsNullOrWhiteSpace(comment.Text))

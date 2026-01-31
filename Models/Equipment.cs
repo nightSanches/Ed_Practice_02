@@ -16,7 +16,7 @@ namespace API.Models
         public string Name { get; set; }
 
         [Column("photo")]
-        public byte[]? Photo { get; set; }
+        public string? Photo { get; set; }
 
         [Required(ErrorMessage = "Инвентарный номер обязателен для заполнения")]
         [Column("inventory_number")]

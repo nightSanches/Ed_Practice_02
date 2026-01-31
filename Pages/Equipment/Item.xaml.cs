@@ -17,7 +17,6 @@ using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
-using EquipmentAccounting.Models;
 
 namespace EquipmentAccounting.Pages.Equipment
 {
@@ -94,6 +93,11 @@ namespace EquipmentAccounting.Pages.Equipment
         private void OnLeave(object sender, MouseEventArgs e)
         {
             itemBorder.Background = (Brush)new BrushConverter().ConvertFrom("#F8F9FA");
+        }
+
+        private void OnEdit(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow.init.OpenPages(new Pages.Equipment.Add(equipment));
         }
     }
 }

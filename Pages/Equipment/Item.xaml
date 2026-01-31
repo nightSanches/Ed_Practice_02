@@ -7,7 +7,8 @@
                           mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="800"
              MouseEnter="OnEnter"
-             MouseLeave="OnLeave">
+             MouseLeave="OnLeave"
+             MouseDown="OnEdit">
 
     <UserControl.Resources>
         <Style TargetType="TextBlock">

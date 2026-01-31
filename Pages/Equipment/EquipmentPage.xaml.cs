@@ -133,7 +133,7 @@ namespace EquipmentAccounting.Pages.Equipment
 
         private void btnAddClick(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.init.OpenPages(new Pages.Equipment.Add());
         }
 
     }

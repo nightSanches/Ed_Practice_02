@@ -1,0 +1,286 @@
+﻿<Page x:Class="EquipmentAccounting.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EquipmentAccounting.Pages"
+            mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1200"
+      Title="MainPage"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <!-- Стиль для кнопок меню -->
+        <Style x:Key="MenuButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#0060AC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Montserrat"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="15"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#28AEED"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DisabledMenuButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MenuButtonStyle}">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="IsEnabled" Value="False"/>
+        </Style>
+
+        <Style x:Key="LogoutButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontFamily" Value="Montserrat"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="10"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#D7596D"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Border CornerRadius="10" Background="White">
+        <Grid>
+
+            <!-- Основная сетка с двумя столбцами и двумя строками -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="235"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0"
+                CornerRadius="10"
+                Background="#F8F9FA"
+                Margin="10">
+                <Grid>
+                    <TextBlock Text="Савичев Глеб Александрович"
+                        x:Name="tbName"
+                        Foreground="#0060AC"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        FontFamily="Montserrat"
+                        HorizontalAlignment="Left"
+                        TextAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="10,0"/>
+                    <TextBlock Text="Админ"
+                        x:Name="tbRole"
+                        Foreground="#0060AC"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        FontFamily="Montserrat"
+                        HorizontalAlignment="Right"
+                        TextAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="10,0"/>
+                </Grid>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="1"
+                CornerRadius="10"
+                Background="#F8F9FA"
+                Margin="10">
+                <Grid>
+                    <ProgressBar x:Name="LoadingProgressBar" 
+                         Width="100"
+                         IsIndeterminate="True"
+                         Foreground="#0060AC" Margin="10,0,10,0"
+                         Height="25"
+                         HorizontalAlignment="Left"/>
+                    <Button x:Name="btnLogout"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Content="Выйти"
+                        Style="{StaticResource LogoutButtonStyle}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="80"
+                        Height="25"
+                        Margin="0,0,10,0"
+                        Click="btnLogout_Click"/>
+                </Grid>
+            </Border>
+            <!-- Левый верхний блок: Оборудование -->
+            <Border Grid.Row="1" Grid.Column="0"
+                    CornerRadius="10"
+                    Background="#F8F9FA"
+                    Margin="100,0,10,10">
+                <StackPanel Margin="20">
+                    <TextBlock Text="ОБОРУДОВАНИЕ"
+                               Foreground="#0060AC"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20"/>
+
+                    <Button x:Name="btnEquipment"
+                            Content="Оборудование"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnEquipment_Click"/>
+
+                    <Button x:Name="btnDirections"
+                            Content="Направления"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnDirections_Click"
+                            Margin="0,10,0,0"/>
+
+                    <Button x:Name="btnEquipmentModels"
+                            Content="Модели оборудования"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnEquipmentModels_Click"
+                            Margin="0,10,0,0"/>
+
+                    <Button x:Name="btnEquipmentTypes"
+                            Content="Типы оборудования"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnEquipmentTypes_Click"
+                            Margin="0,10,0,0"/>
+
+                    <Button x:Name="btnStatuses"
+                            Content="Статусы"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnStatuses_Click"
+                            Margin="0,10,0,0"/>
+
+                    <Button x:Name="btnNetworkSettings"
+                            Content="Сетевые настройки"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnNetworkSettings_Click"
+                            Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Левый нижний блок: Программное обеспечение -->
+            <Border Grid.Row="2" Grid.Column="0"
+                    CornerRadius="10"
+                    Background="#F8F9FA"
+                    Margin="100,10,10,10">
+                <StackPanel Margin="20">
+                    <TextBlock Text="ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ"
+                               Foreground="#0060AC"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20"/>
+
+                    <Button x:Name="btnSoftware"
+                            Content="ПО"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnSoftware_Click"/>
+
+                    <Button x:Name="btnDevelopers"
+                            Content="Разработчики"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnDevelopers_Click"
+                            Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Правый верхний блок: Расходные материалы -->
+            <Border Grid.Row="1" Grid.Column="1"
+                    CornerRadius="10"
+                    Background="#F8F9FA"
+                    Margin="10,0,100,10">
+                <StackPanel Margin="20">
+                    <TextBlock Text="РАСХОДНЫЕ МАТЕРИАЛЫ"
+                               Foreground="#0060AC"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20"/>
+
+                    <Button x:Name="btnConsumables"
+                            Content="Расходные материалы"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnConsumables_Click"/>
+
+                    <Button x:Name="btnConsumableSpecs"
+                            Content="Характеристики расходников"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnConsumableSpecs_Click"
+                            Margin="0,10,0,0"/>
+
+                    <Button x:Name="btnConsumableTypes"
+                            Content="Типы расходников"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnConsumableTypes_Click"
+                            Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Правый нижний блок: Другое -->
+            <Border Grid.Row="2" Grid.Column="1"
+                    CornerRadius="10"
+                    Background="#F8F9FA"
+                    Margin="10,10,100,10">
+                <StackPanel Margin="20">
+                    <TextBlock Text="ДРУГОЕ"
+                               Foreground="#0060AC"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20"/>
+
+                    <Button x:Name="btnInventory"
+                            Content="Инвентаризация"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnInventory_Click"/>
+
+                    <Button x:Name="btnClassrooms"
+                            Content="Аудитории"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnClassrooms_Click"
+                            Margin="0,10,0,0"/>
+
+                    <Button x:Name="btnUsers"
+                            Content="Пользователи"
+                            Style="{StaticResource MenuButtonStyle}"
+                            Click="btnUsers_Click"
+                            Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</Page>

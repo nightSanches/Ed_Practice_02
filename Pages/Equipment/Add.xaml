@@ -259,6 +259,30 @@
                         VerticalAlignment="Top">
                         <ComboBoxItem Tag="empty" Content=""></ComboBoxItem>
                     </ComboBox>
+                    <Border
+                        Width="170"
+                        Height="170"
+                        CornerRadius="5"
+                        BorderBrush="#DDD"
+                        BorderThickness="1"
+                        Background="#F0F0F0"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Margin="270,250,80,0" MouseDown="ImageDeleteClick">
+                        <Image x:Name="imgPhoto"
+                           Stretch="Uniform"
+                           Source="/Images/default-equipment.png"/>
+                    </Border>
+                    <Button
+                        Content="Загрузить фото"
+                        Style="{StaticResource SortButtonStyle}"
+                        Width="150"
+                        Height="35"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Margin="360,440,90,0"
+                        Background="Gray"
+                        Click="btnLoadImage"/>
                 </Grid>
 
             </Grid>

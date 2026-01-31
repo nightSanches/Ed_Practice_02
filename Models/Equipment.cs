@@ -33,7 +33,7 @@ namespace API.Models
         public int? TempResponsibleUserId { get; set; }
 
         [Column("cost", TypeName = "decimal(10,2)")]
-        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Стоимость должна содержать только цифры и точку (например: 1000.00)")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Стоимость должна содержать только цифры и точку (например: 1000.00)")]
         [Range(0, double.MaxValue, ErrorMessage = "Стоимость не может быть отрицательной")]
         public decimal? Cost { get; set; }
 

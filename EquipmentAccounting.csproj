@@ -8,4 +8,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Folder Include="Models\AuthModels\" />
+    <Folder Include="Pages\Equipment\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

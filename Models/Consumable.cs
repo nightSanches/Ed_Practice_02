@@ -25,7 +25,7 @@ namespace API.Models
         public DateOnly ArrivalDate { get; set; }
 
         [Column("photo")]
-        public byte[]? Photo { get; set; }
+        public string? Photo { get; set; }
 
         [Required(ErrorMessage = "Количество обязательно для заполнения")]
         [Column("quantity")]

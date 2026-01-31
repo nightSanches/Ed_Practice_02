@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace testEquipmentAccounting.Models.AuthModels
+namespace EquipmentAccounting.Models.AuthModels
 {
     public class AuthResponse
     {

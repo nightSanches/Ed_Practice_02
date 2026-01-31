@@ -7,5 +7,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+	
+	<ItemGroup>
+		<None Remove="Images\default-equipment.png" />
+		<None Remove="Images\key-icon.png" />
+		<None Remove="Images\user-icon.png" />
+	</ItemGroup>
 
+	<ItemGroup>
+		<Resource Include="Images\default-equipment.png" />
+		<Resource Include="Images\key-icon.png" />
+		<Resource Include="Images\user-icon.png" />
+	</ItemGroup>
 </Project>

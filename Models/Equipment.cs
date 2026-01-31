@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace testEquipmentAccounting.Models
+namespace EquipmentAccounting.Models
 {
     public class Equipment
     {

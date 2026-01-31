@@ -13,14 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EquipmentAccounting.Models;
+using EquipmentAccounting.Services;
 
 namespace EquipmentAccounting.Pages.Equipment
 {
     /// <summary>
     /// Логика взаимодействия для Add.xaml
     /// </summary>
+    /// 
     public partial class Add : Page
     {
+        public readonly EquipmentService _equipmentService = new EquipmentService();
         Models.Equipment equipment;
         public Add(Models.Equipment equipment = null)
         {
@@ -157,7 +160,61 @@ namespace EquipmentAccounting.Pages.Equipment
 
         private void btnAddClick(object sender, RoutedEventArgs e)
         {
+            if(equipment == null)
+            {
+                equipment = new Models.Equipment();
 
+                //обязательно для заполнения
+                equipment.Name = name.Text;
+                equipment.InventoryNumber = Convert.ToInt32(inventory_number.Text);
+
+                //сделать добавление фото
+
+                if(!string.IsNullOrWhiteSpace(cost.Text))
+                    equipment.Cost = Convert.ToInt32(cost.Text);
+                else equipment.Cost = null;
+
+                if (!string.IsNullOrWhiteSpace(comment.Text))
+                    equipment.Comment = comment.Text;
+                else equipment.Comment = null;
+
+                ComboBoxItem item = new ComboBoxItem();
+                item = (ComboBoxItem)room.SelectedItem;
+                if (item != null)
+                    equipment.RoomId = Convert.ToInt32(item.Tag);
+                else equipment.RoomId = null;
+
+                item = (ComboBoxItem)responsible.SelectedItem;
+                if (item != null)
+                    equipment.ResponsibleUserId = Convert.ToInt32(item.Tag);
+                else equipment.ResponsibleUserId = null;
+
+                item = (ComboBoxItem)temp_responsible.SelectedItem;
+                if (item != null)
+                    equipment.TempResponsibleUserId = Convert.ToInt32(item.Tag);
+                else equipment.TempResponsibleUserId = null;
+
+                item = (ComboBoxItem)direction.SelectedItem;
+                if (item != null)
+                    equipment.DirectionId = Convert.ToInt32(item.Tag);
+                else equipment.DirectionId = null;
+
+                item = (ComboBoxItem)status.SelectedItem;
+                if (item != null)
+                    equipment.StatusId = Convert.ToInt32(item.Tag);
+                else equipment.StatusId = null;
+
+                item = (ComboBoxItem)model.SelectedItem;
+                if (item != null)
+                    equipment.ModelId = Convert.ToInt32(item.Tag);
+                else equipment.ModelId = null;
+            }
+           CreateEquipment();
+        }
+
+        private async void CreateEquipment()
+        {
+            await _equipmentService.CreateEquipmentAsync(equipment);
         }
     }
 }

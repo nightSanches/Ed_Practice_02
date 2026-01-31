@@ -168,7 +168,6 @@ namespace API.Controllers
                 return BadRequest("Пользователь с таким email уже существует");
             }
 
-            // Генерация начального токена (можно использовать GUID)
             user.Token = Guid.NewGuid().ToString();
 
             _context.Users.Add(user);

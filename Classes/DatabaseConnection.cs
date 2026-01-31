@@ -79,14 +79,8 @@ namespace API.Classes
         /// <param name="optionsBuilder">Билдер опций контекста БД</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // Измените строку подключения согласно вашим настройкам MySQL
-            // server - адрес сервера
-            // port - порт (по умолчанию 3306)
-            // uid - имя пользователя
-            // pwd - пароль
-            // database - название базы данных
             optionsBuilder.UseMySql(
-                "server=127.0.0.1;port=3306;uid=root;pwd=;database=equipment_management",
+                "server=127.0.0.1;port=3316;uid=root;pwd=;database=equipment_management",
                 new MySqlServerVersion(new Version(8, 0, 11)));
         }
 

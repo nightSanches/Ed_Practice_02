@@ -30,7 +30,6 @@ namespace EquipmentAccounting.Pages.Equipment
             InitializeComponent();
             this.equipment = equipment;
 
-            room.Items.Clear();
             foreach (var i in UserSession.DropdownData.Rooms)
             {
                 var cbx = new ComboBoxItem
@@ -41,7 +40,6 @@ namespace EquipmentAccounting.Pages.Equipment
                 room.Items.Add(cbx);
             }
 
-            responsible.Items.Clear();
             foreach (var i in UserSession.DropdownData.Users)
             {
                 var cbx = new ComboBoxItem
@@ -52,7 +50,6 @@ namespace EquipmentAccounting.Pages.Equipment
                 responsible.Items.Add(cbx);
             }
 
-            temp_responsible.Items.Clear();
             foreach (var i in UserSession.DropdownData.Users)
             {
                 var cbx = new ComboBoxItem
@@ -63,7 +60,6 @@ namespace EquipmentAccounting.Pages.Equipment
                 temp_responsible.Items.Add(cbx);
             }
 
-            direction.Items.Clear();
             foreach (var i in UserSession.DropdownData.Directions)
             {
                 var cbx = new ComboBoxItem
@@ -74,7 +70,6 @@ namespace EquipmentAccounting.Pages.Equipment
                 direction.Items.Add(cbx);
             }
 
-            status.Items.Clear();
             foreach (var i in UserSession.DropdownData.Statuses)
             {
                 var cbx = new ComboBoxItem
@@ -85,7 +80,6 @@ namespace EquipmentAccounting.Pages.Equipment
                 status.Items.Add(cbx);
             }
 
-            model.Items.Clear();
             foreach (var i in UserSession.DropdownData.Models)
             {
                 var cbx = new ComboBoxItem
@@ -97,6 +91,8 @@ namespace EquipmentAccounting.Pages.Equipment
             }
 
             if (this.equipment != null) {
+                btnSave.Content = "Изменить";
+                txtTitle.Text = "Изменение оборудования";
                 id.Content = "Код: " + this.equipment.Id;
                 name.Text = this.equipment.Name;
                 inventory_number.Text = this.equipment.InventoryNumber.ToString();
@@ -180,41 +176,96 @@ namespace EquipmentAccounting.Pages.Equipment
 
                 ComboBoxItem item = new ComboBoxItem();
                 item = (ComboBoxItem)room.SelectedItem;
-                if (item != null)
+                if (item.Tag.ToString() != "empty")
                     equipment.RoomId = Convert.ToInt32(item.Tag);
                 else equipment.RoomId = null;
 
                 item = (ComboBoxItem)responsible.SelectedItem;
-                if (item != null)
+                if (item.Tag.ToString() != "empty")
                     equipment.ResponsibleUserId = Convert.ToInt32(item.Tag);
                 else equipment.ResponsibleUserId = null;
 
                 item = (ComboBoxItem)temp_responsible.SelectedItem;
-                if (item != null)
+                if (item.Tag.ToString() != "empty")
                     equipment.TempResponsibleUserId = Convert.ToInt32(item.Tag);
                 else equipment.TempResponsibleUserId = null;
 
                 item = (ComboBoxItem)direction.SelectedItem;
-                if (item != null)
+                if (item.Tag.ToString() != "empty")
                     equipment.DirectionId = Convert.ToInt32(item.Tag);
                 else equipment.DirectionId = null;
 
                 item = (ComboBoxItem)status.SelectedItem;
-                if (item != null)
+                if (item.Tag.ToString() != "empty")
                     equipment.StatusId = Convert.ToInt32(item.Tag);
                 else equipment.StatusId = null;
 
                 item = (ComboBoxItem)model.SelectedItem;
-                if (item != null)
+                if (item.Tag.ToString() != "empty")
                     equipment.ModelId = Convert.ToInt32(item.Tag);
                 else equipment.ModelId = null;
+
+                CreateEquipment();
             }
-           CreateEquipment();
+            else
+            {
+                //обязательно для заполнения
+                equipment.Name = name.Text;
+                equipment.InventoryNumber = Convert.ToInt32(inventory_number.Text);
+
+                //сделать добавление фото
+
+                if (!string.IsNullOrWhiteSpace(cost.Text))
+                    equipment.Cost = Convert.ToInt32(cost.Text);
+                else equipment.Cost = null;
+
+                if (!string.IsNullOrWhiteSpace(comment.Text))
+                    equipment.Comment = comment.Text;
+                else equipment.Comment = null;
+
+                ComboBoxItem item = new ComboBoxItem();
+                item = (ComboBoxItem)room.SelectedItem;
+                if (item.Tag.ToString() != "empty")
+                    equipment.RoomId = Convert.ToInt32(item.Tag);
+                else equipment.RoomId = null;
+
+                item = (ComboBoxItem)responsible.SelectedItem;
+                if (item.Tag.ToString() != "empty")
+                    equipment.ResponsibleUserId = Convert.ToInt32(item.Tag);
+                else equipment.ResponsibleUserId = null;
+
+                item = (ComboBoxItem)temp_responsible.SelectedItem;
+                if (item.Tag.ToString() != "empty")
+                    equipment.TempResponsibleUserId = Convert.ToInt32(item.Tag);
+                else equipment.TempResponsibleUserId = null;
+
+                item = (ComboBoxItem)direction.SelectedItem;
+                if (item.Tag.ToString() != "empty")
+                    equipment.DirectionId = Convert.ToInt32(item.Tag);
+                else equipment.DirectionId = null;
+
+                item = (ComboBoxItem)status.SelectedItem;
+                if (item.Tag.ToString() != "empty")
+                    equipment.StatusId = Convert.ToInt32(item.Tag);
+                else equipment.StatusId = null;
+
+                item = (ComboBoxItem)model.SelectedItem;
+                if (item.Tag.ToString() != "empty")
+                    equipment.ModelId = Convert.ToInt32(item.Tag);
+                else equipment.ModelId = null;
+
+                UpdateEquipment();
+            }
         }
 
         private async void CreateEquipment()
         {
             await _equipmentService.CreateEquipmentAsync(equipment);
+        }
+
+        private async void UpdateEquipment()
+        {
+            await _equipmentService.UpdateEquipmentAsync(equipment.Id, equipment);
         }
     }
 }

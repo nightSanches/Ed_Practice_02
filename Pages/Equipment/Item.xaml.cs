@@ -34,12 +34,12 @@ namespace EquipmentAccounting.Pages.Equipment
             this.equipment = equipment;
 
             txtName.Text = "(" + equipment.Id + ") " + equipment.Name;
-            txtModel.Text = UserSession.DropdownData.Models.FirstOrDefault(item => item.Id == equipment.ModelId).DisplayText;
-            txtStatus.Text = UserSession.DropdownData.Statuses.FirstOrDefault(item => item.Id == equipment.StatusId).DisplayText;
+            txtModel.Text = UserSession.DropdownData.Models.FirstOrDefault(item => item.Id == equipment.ModelId)?.DisplayText;
+            txtStatus.Text = UserSession.DropdownData.Statuses.FirstOrDefault(item => item.Id == equipment.StatusId)?.DisplayText;
             txtComment.Text = equipment.Comment;
-            txtDirection.Text = UserSession.DropdownData.Directions.FirstOrDefault(item => item.Id == equipment.DirectionId).DisplayText;
+            txtDirection.Text = UserSession.DropdownData.Directions.FirstOrDefault(item => item.Id == equipment.DirectionId)?.DisplayText;
             txtInventoryNumber.Text = equipment.InventoryNumber.ToString();
-            txtRoom.Text = UserSession.DropdownData.Rooms.FirstOrDefault(item => item.Id == equipment.RoomId).DisplayText;
+            txtRoom.Text = UserSession.DropdownData.Rooms.FirstOrDefault(item => item.Id == equipment.RoomId)?.DisplayText;
             txtCost.Text = equipment.Cost.ToString();
 
             LoadPhotoFromBase64();

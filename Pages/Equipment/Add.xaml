@@ -93,7 +93,7 @@
             <Border Grid.Row="0" CornerRadius="10" Background="#F8F9FA" Margin="10">
                 <Grid>
                     <!-- Заголовок слева -->
-                    <TextBlock Grid.Column="0"
+                    <TextBlock Grid.Column="0" x:Name="txtTitle"
                            Text="Добавление оборудования"
                            Foreground="#0060AC"
                            FontSize="20"
@@ -202,7 +202,7 @@
                           SelectedIndex="0"
                           VerticalContentAlignment="Center"
                           VerticalAlignment="Top">
-                        <ComboBoxItem Tag="empty"></ComboBoxItem>
+                        <ComboBoxItem Tag="empty" Content=""></ComboBoxItem>
                     </ComboBox>
                     <Label Content="Ответственный:" FontWeight="Bold" FontSize="16" Margin="10,81,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <ComboBox x:Name="responsible"
@@ -213,7 +213,7 @@
                         SelectedIndex="0"
                         VerticalContentAlignment="Center"
                         VerticalAlignment="Top">
-                        <ComboBoxItem Tag="empty"></ComboBoxItem>
+                        <ComboBoxItem Tag="empty" Content=""></ComboBoxItem>
                     </ComboBox>
                     <Label Content="Временно ответственный:" FontSize="16" Margin="10,152,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <ComboBox x:Name="temp_responsible"
@@ -224,7 +224,7 @@
                         SelectedIndex="0"
                         VerticalContentAlignment="Center"
                         VerticalAlignment="Top">
-                        <ComboBoxItem Tag="empty"></ComboBoxItem>
+                        <ComboBoxItem Tag="empty" Content=""></ComboBoxItem>
                     </ComboBox>
                     <Label Content="Направление:" FontSize="16" Margin="10,223,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <ComboBox x:Name="direction"
@@ -235,7 +235,7 @@
                         SelectedIndex="0"
                         VerticalContentAlignment="Center"
                         VerticalAlignment="Top">
-                        <ComboBoxItem Tag="empty"></ComboBoxItem>
+                        <ComboBoxItem Tag="empty" Content=""></ComboBoxItem>
                     </ComboBox>
                     <Label Content="Статус:" FontSize="16" FontWeight="Bold" Margin="10,294,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <ComboBox x:Name="status"
@@ -246,7 +246,7 @@
                         SelectedIndex="0"
                         VerticalContentAlignment="Center"
                         VerticalAlignment="Top">
-                        <ComboBoxItem Tag="empty"></ComboBoxItem>
+                        <ComboBoxItem Tag="empty" Content=""></ComboBoxItem>
                     </ComboBox>
                     <Label Content="Модель оборудования:" FontSize="16" Margin="10,365,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <ComboBox x:Name="model"
@@ -257,7 +257,7 @@
                         SelectedIndex="0"
                         VerticalContentAlignment="Center"
                         VerticalAlignment="Top">
-                        <ComboBoxItem Tag="empty"></ComboBoxItem>
+                        <ComboBoxItem Tag="empty" Content=""></ComboBoxItem>
                     </ComboBox>
                 </Grid>
 

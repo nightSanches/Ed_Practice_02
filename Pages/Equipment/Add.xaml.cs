@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -91,7 +93,7 @@ namespace EquipmentAccounting.Pages.Equipment
                 };
                 model.Items.Add(cbx);
             }
-
+            id.Content = "";
             if (this.equipment != null) {
                 btnSave.Content = "Изменить";
                 txtTitle.Text = "Изменение оборудования";
@@ -160,66 +162,187 @@ namespace EquipmentAccounting.Pages.Equipment
             MainWindow.init.OpenPages(new Pages.Equipment.EquipmentPage());
         }
 
-        private void btnAddClick(object sender, RoutedEventArgs e)
+        private async void btnAddClick(object sender, RoutedEventArgs e)
         {
-            if(equipment == null)
+            //Стоимость должна содержать только цифры прим. 1000,50
+            if (equipment == null)
             {
-                equipment = new Models.Equipment();
+                var tempEquipment = new Models.Equipment();
+
                 //обязательно для заполнения
-                equipment.Name = name.Text;
-                equipment.InventoryNumber = Convert.ToInt32(inventory_number.Text);
-                equipment.Photo = tempImageBase64;
+                if(string.IsNullOrWhiteSpace(name.Text))
+                {
+                    MessageBox.Show("Наименование обязательно для заполнения", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if(name.Text.Length > 200)
+                {
+                    MessageBox.Show("Наименование максимум 200 символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else
+                    tempEquipment.Name = name.Text;
+
+                if (string.IsNullOrWhiteSpace(inventory_number.Text))
+                {
+                    MessageBox.Show("Инвентарный номер обязателен для заполнения", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if(!Regex.IsMatch(inventory_number.Text, @"^\d+$"))
+                {
+                    MessageBox.Show("Инвентарный номер должен содержать только цифры", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (Convert.ToInt32(inventory_number.Text) <= 0)
+                {
+                    MessageBox.Show("Инвентарный номер должен быть больше нуля", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else 
+                {
+                    var allEquipment = await EquipmentPage.init._equipmentService.GetEquipmentAsync();
+                    if (allEquipment != null && allEquipment.Count > 0)
+                    {
+                        foreach (var equipment in allEquipment)
+                        {
+                            if(equipment.InventoryNumber.ToString() == inventory_number.Text)
+                            {
+                                MessageBox.Show("Инвентарный номер должен быть уникальным", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
+                        }
+                    }
+                    tempEquipment.InventoryNumber = Convert.ToInt32(inventory_number.Text);
+                }
+
+                tempEquipment.Photo = tempImageBase64;
 
                 if (!string.IsNullOrWhiteSpace(cost.Text))
-                    equipment.Cost = Convert.ToDecimal(cost.Text);
-                else equipment.Cost = null;
+                {
+                    if (!Regex.IsMatch(cost.Text, @"^\d+(\,\d+)?$"))
+                    {
+                        MessageBox.Show("Неправильный формат стоимости (прим. 1000 или 1000,15)", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else if (Convert.ToDecimal(cost.Text) < 0)
+                    {
+                        MessageBox.Show("Стоимость не может быть отрицательной", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    tempEquipment.Cost = Convert.ToDecimal(cost.Text);
+                }
+                else tempEquipment.Cost = null;
 
                 if (!string.IsNullOrWhiteSpace(comment.Text))
-                    equipment.Comment = comment.Text;
-                else equipment.Comment = null;
+                    tempEquipment.Comment = comment.Text;
+                else tempEquipment.Comment = null;
 
                 ComboBoxItem item = new ComboBoxItem();
                 item = (ComboBoxItem)room.SelectedItem;
                 if (item.Tag.ToString() != "empty")
-                    equipment.RoomId = Convert.ToInt32(item.Tag);
-                else equipment.RoomId = null;
+                    tempEquipment.RoomId = Convert.ToInt32(item.Tag);
+                else tempEquipment.RoomId = null;
 
                 item = (ComboBoxItem)responsible.SelectedItem;
                 if (item.Tag.ToString() != "empty")
-                    equipment.ResponsibleUserId = Convert.ToInt32(item.Tag);
-                else equipment.ResponsibleUserId = null;
+                    tempEquipment.ResponsibleUserId = Convert.ToInt32(item.Tag);
+                else tempEquipment.ResponsibleUserId = null;
 
                 item = (ComboBoxItem)temp_responsible.SelectedItem;
                 if (item.Tag.ToString() != "empty")
-                    equipment.TempResponsibleUserId = Convert.ToInt32(item.Tag);
-                else equipment.TempResponsibleUserId = null;
+                    tempEquipment.TempResponsibleUserId = Convert.ToInt32(item.Tag);
+                else tempEquipment.TempResponsibleUserId = null;
 
                 item = (ComboBoxItem)direction.SelectedItem;
                 if (item.Tag.ToString() != "empty")
-                    equipment.DirectionId = Convert.ToInt32(item.Tag);
-                else equipment.DirectionId = null;
+                    tempEquipment.DirectionId = Convert.ToInt32(item.Tag);
+                else tempEquipment.DirectionId = null;
 
                 item = (ComboBoxItem)status.SelectedItem;
                 if (item.Tag.ToString() != "empty")
-                    equipment.StatusId = Convert.ToInt32(item.Tag);
-                else equipment.StatusId = null;
+                    tempEquipment.StatusId = Convert.ToInt32(item.Tag);
+                else tempEquipment.StatusId = null;
 
                 item = (ComboBoxItem)model.SelectedItem;
                 if (item.Tag.ToString() != "empty")
-                    equipment.ModelId = Convert.ToInt32(item.Tag);
-                else equipment.ModelId = null;
+                    tempEquipment.ModelId = Convert.ToInt32(item.Tag);
+                else tempEquipment.ModelId = null;
+
+                equipment = tempEquipment;
 
                 CreateEquipment();
+                MessageBox.Show("Оборудование сохранено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MainWindow.init.OpenPages(new Pages.Equipment.EquipmentPage());
             }
             else
             {
                 //обязательно для заполнения
-                equipment.Name = name.Text;
-                equipment.InventoryNumber = Convert.ToInt32(inventory_number.Text);
+                if (string.IsNullOrWhiteSpace(name.Text))
+                {
+                    MessageBox.Show("Наименование обязательно для заполнения", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (name.Text.Length > 200)
+                {
+                    MessageBox.Show("Наименование максимум 200 символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else
+                    equipment.Name = name.Text;
+
+                if (string.IsNullOrWhiteSpace(inventory_number.Text))
+                {
+                    MessageBox.Show("Инвентарный номер обязателен для заполнения", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (!Regex.IsMatch(inventory_number.Text, @"^\d+$"))
+                {
+                    MessageBox.Show("Инвентарный номер должен содержать только цифры", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (Convert.ToInt32(inventory_number.Text) <= 0)
+                {
+                    MessageBox.Show("Инвентарный номер должен быть больше нуля", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else
+                {
+                    var allEquipment = await EquipmentPage.init._equipmentService.GetEquipmentAsync();
+                    if (allEquipment != null && allEquipment.Count > 0)
+                    {
+                        foreach (var equipment in allEquipment)
+                        {
+                            if (equipment.InventoryNumber.ToString() == inventory_number.Text)
+                            {
+                                if(equipment.InventoryNumber != equipment.InventoryNumber)
+                                {
+                                    MessageBox.Show("Инвентарный номер должен быть уникальным", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    equipment.InventoryNumber = Convert.ToInt32(inventory_number.Text);
+                }
+
                 equipment.Photo = tempImageBase64;
 
                 if (!string.IsNullOrWhiteSpace(cost.Text))
+                {
+                    if (!Regex.IsMatch(cost.Text, @"^\d+(\,\d+)?$"))
+                    {
+                        MessageBox.Show("Неправильный формат стоимости (прим. 1000 или 1000,15)", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else if (Convert.ToDecimal(cost.Text) < 0)
+                    {
+                        MessageBox.Show("Стоимость не может быть отрицательной", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
                     equipment.Cost = Convert.ToDecimal(cost.Text);
+                }
                 else equipment.Cost = null;
 
                 if (!string.IsNullOrWhiteSpace(comment.Text))
@@ -258,6 +381,8 @@ namespace EquipmentAccounting.Pages.Equipment
                 else equipment.ModelId = null;
 
                 UpdateEquipment();
+                MessageBox.Show("Оборудование обновлено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MainWindow.init.OpenPages(new Pages.Equipment.EquipmentPage());
             }
         }
 
@@ -365,9 +490,29 @@ namespace EquipmentAccounting.Pages.Equipment
         {
             if(equipment != null)
             {
-                equipment.Photo = null;
-                imgPhoto.Source = new BitmapImage(new Uri("/Images/default-equipment.png", UriKind.Relative));
+                if (equipment.Photo != null)
+                {
+                    MessageBoxResult msgBoxResult = MessageBox.Show("Удалить изображение?", "Удаление изображения", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (msgBoxResult == MessageBoxResult.Yes)
+                    {
+                        equipment.Photo = null;
+                        imgPhoto.Source = new BitmapImage(new Uri("/Images/default-equipment.png", UriKind.Relative));
+                    }
+                }
             }
+            else if(imgPhoto.Source.ToString() != "pack://application:,,,/Images/default-equipment.png")
+            {
+                MessageBoxResult msgBoxResult = MessageBox.Show("Удалить изображение?", "Удаление изображения", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (msgBoxResult == MessageBoxResult.Yes)
+                {
+                    imgPhoto.Source = new BitmapImage(new Uri("/Images/default-equipment.png", UriKind.Relative));
+                }
+            }
+        }
+
+        private void Validation()
+        {
+
         }
     }
 }

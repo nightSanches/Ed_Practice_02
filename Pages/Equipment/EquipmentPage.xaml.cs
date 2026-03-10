@@ -22,12 +22,14 @@ namespace EquipmentAccounting.Pages.Equipment
 {
     public partial class EquipmentPage : Page
     {
+        public static EquipmentPage init;
         public readonly EquipmentService _equipmentService = new EquipmentService();
         private bool _isInitializing = true;
         public EquipmentPage()
         {
             InitializeComponent();
             _isInitializing = false;
+            init = this;
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {

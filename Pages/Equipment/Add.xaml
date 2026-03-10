@@ -289,6 +289,17 @@
             <Border Grid.Row="2" CornerRadius="10" Background="#F8F9FA" Margin="10">
                 <Grid>
                     <Button
+                        Visibility="Hidden"
+                        Grid.Row="2"
+                        x:Name="btnSoftware"
+                        Content="ПО"
+                        Style="{StaticResource SortButtonStyle}"
+                        Width="150"
+                        Height="35"
+                        HorizontalAlignment="Left"
+                        Margin="20,0"
+                        Click="btnOpenSoftware"/>
+                    <Button
                         Grid.Row="2"
                         Content="Отменить"
                         Style="{StaticResource SortButtonStyle}"

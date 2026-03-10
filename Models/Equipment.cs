@@ -13,7 +13,7 @@ namespace EquipmentAccounting.Models
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Photo { get; set; }
-        public int? InventoryNumber { get; set; }
+        public int InventoryNumber { get; set; }
         public int? RoomId { get; set; }
         public int? ResponsibleUserId { get; set; }
         public int? TempResponsibleUserId { get; set; }

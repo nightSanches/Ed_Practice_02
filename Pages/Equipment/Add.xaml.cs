@@ -95,6 +95,7 @@ namespace EquipmentAccounting.Pages.Equipment
             }
             id.Content = "";
             if (this.equipment != null) {
+                btnSoftware.Visibility = Visibility.Visible;
                 btnSave.Content = "Изменить";
                 txtTitle.Text = "Изменение оборудования";
                 id.Content = "Код: " + this.equipment.Id;
@@ -510,9 +511,9 @@ namespace EquipmentAccounting.Pages.Equipment
             }
         }
 
-        private void Validation()
+        private void btnOpenSoftware(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.init.OpenPages(new Pages.EquipmentSoftware.Main(this.equipment));
         }
     }
 }

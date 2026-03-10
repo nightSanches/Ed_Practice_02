@@ -112,6 +112,13 @@ namespace API.Controllers
                 return Unauthorized("Недостаточно прав для выполнения операции");
             }
 
+            // Валидация
+            var validationResult = ValidateEquipment(equipment);
+            if (validationResult != null)
+            {
+                return BadRequest(validationResult);
+            }
+
             // Проверка уникальности инвентарного номера
             if (await _context.Equipment.AnyAsync(e => e.InventoryNumber == equipment.InventoryNumber))
             {
@@ -146,6 +153,13 @@ namespace API.Controllers
             if (id != equipment.Id)
             {
                 return BadRequest("ID в пути и в теле запроса не совпадают");
+            }
+
+            // Валидация
+            var validationResult = ValidateEquipment(equipment);
+            if (validationResult != null)
+            {
+                return BadRequest(validationResult);
             }
 
             // Проверка уникальности инвентарного номера (исключая текущую запись)
@@ -241,6 +255,42 @@ namespace API.Controllers
         private bool EquipmentExists(int id)
         {
             return _context.Equipment.Any(e => e.Id == id);
+        }
+        
+        // Лишний код?
+        private string? ValidateEquipment(Equipment equipment)
+        {
+            if (string.IsNullOrWhiteSpace(equipment.Name))
+            {
+                return "Наименование оборудования обязательно для заполнения";
+            }
+
+            if (equipment.Name.Length > 200)
+            {
+                return "Наименование оборудования максимум 200 символов";
+            }
+
+            if (equipment.InventoryNumber <= 0)
+            {
+                return "Инвентарный номер должен быть больше 0";
+            }
+
+            // Проверка формата инвентарного номера (только цифры)
+            if (!Regex.IsMatch(equipment.InventoryNumber.ToString(), @"^\d+$"))
+            {
+                return "Инвентарный номер должен содержать только цифры";
+            }
+
+            // Проверка стоимости (если указана)
+            if (equipment.Cost.HasValue)
+            {
+                if (equipment.Cost < 0)
+                {
+                    return "Стоимость не может быть отрицательной";
+                }
+            }
+
+            return null;
         }
     }
 }

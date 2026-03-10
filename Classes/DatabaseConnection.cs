@@ -80,7 +80,7 @@ namespace API.Classes
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(
-                "server=127.0.0.1;port=3316;uid=root;pwd=;database=equipment_management",
+                "server=127.0.0.1;port=3306;uid=root;pwd=;database=equipment_management",
                 new MySqlServerVersion(new Version(8, 0, 11)));
         }
 

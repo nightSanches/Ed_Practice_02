@@ -149,11 +149,11 @@ namespace API.Controllers
             }
 
             // Дополнительная валидация
-            var validationResult = ValidateUser(user);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
+            //var validationResult = ValidateUser(user);
+            //if (validationResult != null)
+            //{
+            //    return BadRequest(validationResult);
+            //}
 
             // Проверка уникальности логина
             if (await _context.Users.AnyAsync(u => u.Username == user.Username))
@@ -207,11 +207,11 @@ namespace API.Controllers
             }
 
             // Дополнительная валидация
-            var validationResult = ValidateUser(user);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
+            //var validationResult = ValidateUser(user);
+            //if (validationResult != null)
+            //{
+            //    return BadRequest(validationResult);
+            //}
 
             // Проверка существования пользователя
             var existingUser = await _context.Users.FindAsync(id);
@@ -369,69 +369,69 @@ namespace API.Controllers
         }
 
 
-        // ЛИШНИЙ КОД
-        //private string? ValidateUser(User user)
-        //{
-        //    // Проверка обязательных полей
-        //    if (string.IsNullOrWhiteSpace(user.Username))
-        //    {
-        //        return "Логин обязателен для заполнения";
-        //    }
+        // ЛИШНИЙ КОД?
+        private string? ValidateUser(User user)
+        {
+            // Проверка обязательных полей
+            if (string.IsNullOrWhiteSpace(user.Username))
+            {
+                return "Логин обязателен для заполнения";
+            }
 
-        //    if (string.IsNullOrWhiteSpace(user.Password))
-        //    {
-        //        return "Пароль обязателен для заполнения";
-        //    }
+            if (string.IsNullOrWhiteSpace(user.Password))
+            {
+                return "Пароль обязателен для заполнения";
+            }
 
-        //    if (string.IsNullOrWhiteSpace(user.LastName))
-        //    {
-        //        return "Фамилия обязательна для заполнения";
-        //    }
+            if (string.IsNullOrWhiteSpace(user.LastName))
+            {
+                return "Фамилия обязательна для заполнения";
+            }
 
-        //    if (string.IsNullOrWhiteSpace(user.FirstName))
-        //    {
-        //        return "Имя обязательно для заполнения";
-        //    }
+            if (string.IsNullOrWhiteSpace(user.FirstName))
+            {
+                return "Имя обязательно для заполнения";
+            }
 
-        //    // Проверка формата логина
-        //    if (!Regex.IsMatch(user.Username, @"^[a-zA-Z0-9_]+$"))
-        //    {
-        //        return "Логин может содержать только буквы, цифры и символ подчеркивания";
-        //    }
+            // Проверка формата логина
+            if (!Regex.IsMatch(user.Username, @"^[a-zA-Z0-9_]+$"))
+            {
+                return "Логин может содержать только буквы, цифры и символ подчеркивания";
+            }
 
-        //    // Проверка роли
-        //    if (!Regex.IsMatch(user.Role, @"^(employee|teacher|administrator)$"))
-        //    {
-        //        return "Роль должна быть: employee, teacher или administrator";
-        //    }
+            // Проверка роли
+            if (!Regex.IsMatch(user.Role, @"^(employee|teacher|administrator)$"))
+            {
+                return "Роль должна быть: employee, teacher или administrator";
+            }
 
-        //    // Проверка email если указан
-        //    if (!string.IsNullOrWhiteSpace(user.Email))
-        //    {
-        //        try
-        //        {
-        //            var email = new System.Net.Mail.MailAddress(user.Email);
-        //            if (email.Address != user.Email)
-        //            {
-        //                return "Некорректный формат email";
-        //            }
-        //        }
-        //        catch
-        //        {
-        //            return "Некорректный формат email";
-        //        }
-        //    }
+            // Проверка email если указан
+            if (!string.IsNullOrWhiteSpace(user.Email))
+            {
+                try
+                {
+                    var email = new System.Net.Mail.MailAddress(user.Email);
+                    if (email.Address != user.Email)
+                    {
+                        return "Некорректный формат email";
+                    }
+                }
+                catch
+                {
+                    return "Некорректный формат email";
+                }
+            }
 
-        //    // Проверка телефона если указан
-        //    if (!string.IsNullOrWhiteSpace(user.Phone))
-        //    {
-        //        if (!Regex.IsMatch(user.Phone, @"^[\d\s\-\+\(\)]+$"))
-        //        {
-        //            return "Телефон может содержать только цифры, пробелы, тире, плюс и скобки";
-        //        }
-        //    }
+            // Проверка телефона если указан
+            if (!string.IsNullOrWhiteSpace(user.Phone))
+            {
+                if (!Regex.IsMatch(user.Phone, @"^[\d\s\-\+\(\)]+$"))
+                {
+                    return "Телефон может содержать только цифры, пробелы, тире, плюс и скобки";
+                }
+            }
 
-        //    return null;
-        //}
+            return null;
+        }
     }
 }

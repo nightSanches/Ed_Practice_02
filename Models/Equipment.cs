@@ -10,15 +10,12 @@ namespace API.Models
         [Column("id")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Наименование оборудования обязательно для заполнения")]
         [Column("name")]
-        [StringLength(200, ErrorMessage = "Наименование не может превышать 200 символов")]
         public string Name { get; set; }
 
         [Column("photo")]
         public string? Photo { get; set; }
 
-        [Required(ErrorMessage = "Инвентарный номер обязателен для заполнения")]
         [Column("inventory_number")]
         public int InventoryNumber { get; set; }
 

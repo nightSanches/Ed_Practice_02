@@ -85,9 +85,7 @@ namespace API.Controllers
                 return Unauthorized("Недостаточно прав для выполнения операции");
             }
 
-            var software = await _context.Software
-                .Include(s => s.Developer)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            var software = await _context.Software.FindAsync(id);
 
             if (software == null)
             {
@@ -130,11 +128,6 @@ namespace API.Controllers
 
             _context.Software.Add(software);
             await _context.SaveChangesAsync();
-
-            // Загружаем связанные данные для возврата
-            await _context.Entry(software)
-                .Reference(s => s.Developer)
-                .LoadAsync();
 
             return CreatedAtAction(nameof(GetSoftware), new { id = software.Id }, software);
         }

@@ -25,6 +25,7 @@ namespace EquipmentAccounting.Pages.EquipmentSoftware
         public static Main init;
         private Models.Equipment equipment;
         public readonly EquipmentSoftwareService _equipmentSoftwareService = new EquipmentSoftwareService();
+        public readonly SoftwareService _softwareService = new SoftwareService();
         public Main(Models.Equipment equipment)
         {
             InitializeComponent();
@@ -59,6 +60,7 @@ namespace EquipmentAccounting.Pages.EquipmentSoftware
             try
             {
                 var allEquipmentSoftware = await _equipmentSoftwareService.GetEquipmentSoftwareAsync(equipment.Id);
+                var allSoftware = await _softwareService.GetAllSoftwareAsync();
                 parent.Children.Clear();
                 if (allEquipmentSoftware != null && allEquipmentSoftware.Count > 0)
                 {
@@ -66,7 +68,8 @@ namespace EquipmentAccounting.Pages.EquipmentSoftware
                     foreach (var equipmentSoftware in allEquipmentSoftware)
                     {
                         count++;
-                        var equipmentSoftwareItem = new Item(equipmentSoftware, count);
+                        var software = allSoftware.First(id => id.Id == equipmentSoftware.SoftwareId);
+                        var equipmentSoftwareItem = new Item(equipmentSoftware, count, software);
                         parent.Children.Add(equipmentSoftwareItem);
                     }
 

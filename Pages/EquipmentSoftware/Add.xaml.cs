@@ -23,6 +23,7 @@ namespace EquipmentAccounting.Pages.EquipmentSoftware
     {
         private Models.Equipment equipment;
         public readonly EquipmentSoftwareService _equipmentSoftwareService = new EquipmentSoftwareService();
+        public readonly SoftwareService _softwareService = new SoftwareService();
         public static Add init;
         int equipmentId;
         public Add(EquipmentSoftwareService equipmentSoftwareService, int equipmentId, Models.Equipment equipment)
@@ -32,12 +33,23 @@ namespace EquipmentAccounting.Pages.EquipmentSoftware
             this.equipmentId = equipmentId; 
             this.equipment = equipment;
             init = this;
+            LoadTable();
+        }
 
+        public async void LoadTable()
+        {
+            await LoadSoftwareAsync();
+        }
+
+        private async Task LoadSoftwareAsync()
+        {
+            var allSoftware = await _softwareService.GetAllSoftwareAsync();
             int count = 0;
-            foreach(var i in UserSession.DropdownData.Software)
+            foreach (var i in UserSession.DropdownData.Software)
             {
                 count++;
-                var equipmentSoftwareAddItem = new AddItem(i.Id, i.DisplayText, count);
+                var software = allSoftware.First(id => id.Id == i.Id);
+                var equipmentSoftwareAddItem = new AddItem(i.Id, i.DisplayText, count, software);
                 parent.Children.Add(equipmentSoftwareAddItem);
             }
         }

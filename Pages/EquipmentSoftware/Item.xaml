@@ -49,7 +49,7 @@
          CornerRadius="10"
         Width="Auto"
         Height="90"
-        Padding="15"
+        Padding="10"
         Margin="5"
         VerticalAlignment="Center"
         x:Name="itemBorder">
@@ -57,41 +57,35 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="txtId" FontSize="16"
                FontWeight="Medium"
                Margin="0,0,0,0" Text="1." VerticalAlignment="Center"
 HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="1" x:Name="txtName"
-               FontSize="16"
-               FontWeight="Bold"
-               Foreground="#0060AC"
-               TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Text="Windows 10 Pro" TextWrapping="Wrap"/>
+            
             <!-- Основная информация -->
-            <!--<StackPanel Grid.Column="1"
-                    Margin="15,0" VerticalAlignment="Center">
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Grid.Column="1" x:Name="txtName" Margin="0,0,0,5"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   Foreground="#0060AC"
+                   TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Text="Windows 10 Pro" TextWrapping="Wrap"/>
 
                 <TextBlock
-                       Foreground="#555"
-                       Margin="0,5,0,0" Text="Разработчик:"/>
-
-                <TextBlock x:Name="txtDev"
-                       FontWeight="Medium"
-                       Margin="0,5,0,0" Text="Microsoft"/>
+                       x:Name="txtDev" Margin="0,0,0,0" Foreground="#555" Text="Разработчик: Microsoft" FontSize="12"/>
             </StackPanel>
 
-            <StackPanel Grid.Column="2"
-                Margin="15,0" VerticalAlignment="Center">
+            <StackPanel Grid.Column="2" VerticalAlignment="Center">
 
                 <TextBlock
                    Foreground="#555"
-                   Margin="0,5,0,0" Text="Версия:"/>
+                   Margin="0,5,0,0" Text=""/>
 
-                <TextBlock x:Name="txtVersion"
-                   FontWeight="Medium"
-                   Margin="0,5,0,0" Text="21H2"/>
-            </StackPanel>-->
+                <TextBlock x:Name="txtVer" Foreground="#555"
+                   Margin="0,5,0,0" Text="Версия: 21H2"/>
+            </StackPanel>
 
             <!-- Кнопки управления -->
             <StackPanel Grid.Column="3"

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EquipmentAccounting.Pages.EquipmentSoftware"
                                                 mc:Ignorable="d" 
-         d:DesignHeight="50" d:DesignWidth="300"
+         d:DesignHeight="60" d:DesignWidth="300"
          MouseEnter="OnEnter"
          MouseLeave="OnLeave"
          MouseDown="OnAdd">
@@ -49,7 +49,7 @@
     <Border Background="#F8F9FA"
          CornerRadius="10"
         Width="Auto"
-        Height="40"
+        Height="50"
         Margin="5"
         VerticalAlignment="Center"
         x:Name="itemBorder">
@@ -62,11 +62,16 @@
                FontWeight="Medium"
                Margin="0,0,0,0" Text="1." VerticalAlignment="Center"
                HorizontalAlignment="Center"/>
-            <TextBlock Grid.Column="1" x:Name="txtName" Margin="0,0,5,0"
-               FontSize="12"
-               FontWeight="Bold"
-               Foreground="#0060AC"
-               TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Text="Windows 10 Pro" TextWrapping="Wrap"/>
+            <StackPanel Grid.Column="1"
+            Margin="0,5">
+                <TextBlock Grid.Column="1" x:Name="txtName" Margin="0,0,5,0"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Foreground="#0060AC"
+                    TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Text="Windows 10 Pro" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="txtDev"  Text="Разработчик: " FontSize="10"  Foreground="#666"/>
+                    <TextBlock x:Name="txtVer" Text="Версия: " FontSize="10" Foreground="#666"/>
+            </StackPanel>
         </Grid>
     </Border>
 </UserControl>

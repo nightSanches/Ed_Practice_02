@@ -216,7 +216,8 @@ namespace EquipmentAccounting.Pages.Equipment
                     tempEquipment.InventoryNumber = Convert.ToInt32(inventory_number.Text);
                 }
 
-                tempEquipment.Photo = tempImageBase64;
+                if(tempImageBase64 != null)
+                    tempEquipment.Photo = tempImageBase64;
 
                 if (!string.IsNullOrWhiteSpace(cost.Text))
                 {
@@ -326,8 +327,8 @@ namespace EquipmentAccounting.Pages.Equipment
                     }
                     equipment.InventoryNumber = Convert.ToInt32(inventory_number.Text);
                 }
-
-                equipment.Photo = tempImageBase64;
+                if (tempImageBase64 != null)
+                    equipment.Photo = tempImageBase64;
 
                 if (!string.IsNullOrWhiteSpace(cost.Text))
                 {

@@ -23,13 +23,17 @@ namespace EquipmentAccounting.Pages.EquipmentSoftware
     public partial class Item : UserControl
     {
         Models.EquipmentSoftware equipmentSoftware;
-        public Item(Models.EquipmentSoftware equipmentSoftware, int Id)
+        Software thisSoftware;
+        public Item(Models.EquipmentSoftware equipmentSoftware, int Id, Software software)
         {
             InitializeComponent();
             this.equipmentSoftware = equipmentSoftware;
 
+
             txtId.Text = Id + ".";
-            txtName.Text = UserSession.DropdownData.Software.FirstOrDefault(item => item.Id == equipmentSoftware.SoftwareId)?.DisplayText;
+            txtName.Text = software.Name;
+            txtVer.Text = "Версия: " + software.Version;
+            txtDev.Text = "Разработчик: " + UserSession.DropdownData.Developers.FirstOrDefault(item => item.Id == software.DeveloperId)?.DisplayText;
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

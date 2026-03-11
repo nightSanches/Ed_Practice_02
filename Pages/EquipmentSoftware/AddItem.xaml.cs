@@ -23,12 +23,14 @@ namespace EquipmentAccounting.Pages.EquipmentSoftware
     public partial class AddItem : UserControl
     {
         int Id;
-        public AddItem(int id, string text, int Count)
+        public AddItem(int id, string text, int Count, Software software)
         {
             InitializeComponent();
             Id = id;
             txtName.Text = text;
             txtId.Text = Count.ToString();
+            txtDev.Text = "Разработчик: " + UserSession.DropdownData.Developers.FirstOrDefault(item => item.Id == software.DeveloperId)?.DisplayText;
+            txtVer.Text = "Версия: " + software.Version;
         }
 
         private void OnAdd(object sender, MouseButtonEventArgs e)

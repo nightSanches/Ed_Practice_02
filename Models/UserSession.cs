@@ -10,6 +10,7 @@ namespace EquipmentAccounting.Models
     {
         public static string Token { get; set; } = string.Empty;
         public static string Role { get; set; } = string.Empty;
+        public static int UserId { get; set; } = int.MaxValue;
         public static string FullName { get; set; } = string.Empty;
         public static DropdownData DropdownData { get; set; } = new();
         public static bool IsAuthenticated => !string.IsNullOrEmpty(Token);
@@ -18,6 +19,7 @@ namespace EquipmentAccounting.Models
         {
             Token = string.Empty;
             Role = string.Empty;
+            UserId = int.MaxValue;
             FullName = string.Empty;
             DropdownData = new DropdownData();
         }

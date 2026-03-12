@@ -28,6 +28,7 @@ namespace EquipmentAccounting.Services
                     {
                         UserSession.Token = authResponse.Token;
                         UserSession.Role = authResponse.Role;
+                        UserSession.UserId = authResponse.Id;
                         UserSession.FullName = authResponse.FullName;
 
                         return (true, authResponse, string.Empty);

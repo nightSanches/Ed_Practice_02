@@ -526,7 +526,7 @@ namespace EquipmentAccounting.Pages.Equipment
 
         private void btnOpenResponsibles(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.init.OpenPages(new Pages.EquipmentResponsibleHistory.Main(this.equipment));
         }
     }
 }

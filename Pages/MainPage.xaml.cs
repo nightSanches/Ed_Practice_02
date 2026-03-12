@@ -147,12 +147,12 @@ namespace EquipmentAccounting.Pages
 
         private void btnEquipmentTypes_Click(object sender, RoutedEventArgs e)
         {
-            // Навигация на страницу типов оборудования
+            MainWindow.init.OpenPages(new Pages.EquipmentType.Main());
         }
 
         private void btnStatuses_Click(object sender, RoutedEventArgs e)
         {
-            // Навигация на страницу статусов
+            MainWindow.init.OpenPages(new Pages.Status.Main());
         }
 
         // Обработчики для блока Программное обеспечение

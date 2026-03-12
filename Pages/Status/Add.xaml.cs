@@ -1,10 +1,8 @@
-﻿using EquipmentAccounting.Models;
-using EquipmentAccounting.Services;
+﻿using EquipmentAccounting.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,21 +13,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace EquipmentAccounting.Pages.Directions
+namespace EquipmentAccounting.Pages.Status
 {
     /// <summary>
     /// Логика взаимодействия для Add.xaml
     /// </summary>
     public partial class Add : Window
     {
-        private Models.Direction direction;
-        public readonly DirectionsService _directionsService = new DirectionsService();
-        public Add(Models.Direction dir = null)
+        private Models.Status direction;
+        public readonly StatusService _directionsService = new StatusService();
+        public Add(Models.Status dir = null)
         {
             InitializeComponent();
             direction = dir;
-            if(direction!=null)
-                txtName.Text = direction.Name;
+
+            if (direction != null) txtName.Text = direction.Name;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -47,7 +45,7 @@ namespace EquipmentAccounting.Pages.Directions
         {
             if (direction == null)
             {
-                var temp = new Models.Direction();
+                var temp = new Models.Status();
 
                 //обязательно для заполнения
                 if (string.IsNullOrWhiteSpace(txtName.Text))
@@ -61,7 +59,7 @@ namespace EquipmentAccounting.Pages.Directions
 
                 CreateDirection();
                 MessageBox.Show("Направление добавлено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                MainWindow.init.OpenPages(new Directions.Main());
+                MainWindow.init.OpenPages(new Status.Main());
                 this.Close();
             }
             else
@@ -76,19 +74,19 @@ namespace EquipmentAccounting.Pages.Directions
 
                 UpdateDirection();
                 MessageBox.Show("Наименование изменено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                MainWindow.init.OpenPages(new Directions.Main());
+                MainWindow.init.OpenPages(new Status.Main());
                 this.Close();
             }
         }
 
         private async void CreateDirection()
         {
-            await _directionsService.CreateDirectionAsync(direction);
+            await _directionsService.CreateStatusAsync(direction);
         }
 
         private async void UpdateDirection()
         {
-            await _directionsService.UpdateDirectionAsync(direction.Id, direction);
+            await _directionsService.UpdateStatusAsync(direction.Id, direction);
         }
     }
 }

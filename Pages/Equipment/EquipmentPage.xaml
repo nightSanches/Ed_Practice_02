@@ -127,15 +127,42 @@
                              BorderBrush="#CCCCCC"
                              BorderThickness="1"
                              KeyDown="txtPass_KeyDown">
-                            <TextBox.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Color="White" Offset="0"/>
-                                    <GradientStop Color="#F8F9FA" Offset="1"/>
-                                </LinearGradientBrush>
-                            </TextBox.Background>
-                            <TextBox.ToolTip>
-                                <TextBlock Text="Поиск по наименованию оборудования" FontSize="12"/>
-                            </TextBox.ToolTip>
+                            <TextBox.Resources>
+                                <VisualBrush x:Key="HintText" 
+                             AlignmentX="Left" 
+                             AlignmentY="Center" 
+                             Stretch="None">
+                                    <VisualBrush.Visual>
+                                        <Label Content="Поиск" 
+                               Foreground="Gray" 
+                               Background="Transparent" 
+                               Padding="10,0,0,0"/>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </TextBox.Resources>
+
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Style.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Text" Value=""/>
+                                                <Condition Property="IsKeyboardFocused" Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                        </MultiTrigger>
+
+                                        <Trigger Property="IsKeyboardFocused" Value="True">
+                                            <Setter Property="Background" Value="White"/>
+                                        </Trigger>
+
+                                        <Trigger Property="Text" Value="{x:Null}">
+                                            <Setter Property="Background" Value="{StaticResource HintText}"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
                         </TextBox>
 
                         <!-- Выпадающий список сортировки -->

@@ -96,6 +96,8 @@ namespace EquipmentAccounting.Pages.Equipment
             id.Content = "";
             if (this.equipment != null) {
                 btnSoftware.Visibility = Visibility.Visible;
+                btnResponsibles.Visibility = Visibility.Visible;
+                btnNetworkSettings.Visibility = Visibility.Visible;
                 btnSave.Content = "Изменить";
                 txtTitle.Text = "Изменение оборудования";
                 id.Content = "Код: " + this.equipment.Id;
@@ -204,9 +206,9 @@ namespace EquipmentAccounting.Pages.Equipment
                     var allEquipment = await EquipmentPage.init._equipmentService.GetEquipmentAsync();
                     if (allEquipment != null && allEquipment.Count > 0)
                     {
-                        foreach (var equipment in allEquipment)
+                        foreach (var temp in allEquipment)
                         {
-                            if(equipment.InventoryNumber.ToString() == inventory_number.Text)
+                            if(temp.InventoryNumber.ToString() == inventory_number.Text)
                             {
                                 MessageBox.Show("Инвентарный номер должен быть уникальным", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
@@ -313,11 +315,11 @@ namespace EquipmentAccounting.Pages.Equipment
                     var allEquipment = await EquipmentPage.init._equipmentService.GetEquipmentAsync();
                     if (allEquipment != null && allEquipment.Count > 0)
                     {
-                        foreach (var equipment in allEquipment)
+                        foreach (var temp in allEquipment)
                         {
-                            if (equipment.InventoryNumber.ToString() == inventory_number.Text)
+                            if (temp.InventoryNumber != equipment.InventoryNumber)
                             {
-                                if(equipment.InventoryNumber != equipment.InventoryNumber)
+                                if (temp.InventoryNumber.ToString() == inventory_number.Text)
                                 {
                                     MessageBox.Show("Инвентарный номер должен быть уникальным", "Ошибка.", MessageBoxButton.OK, MessageBoxImage.Error);
                                     return;
@@ -515,6 +517,16 @@ namespace EquipmentAccounting.Pages.Equipment
         private void btnOpenSoftware(object sender, RoutedEventArgs e)
         {
             MainWindow.init.OpenPages(new Pages.EquipmentSoftware.Main(this.equipment));
+        }
+
+        private void btnOpenNetwork(object sender, RoutedEventArgs e)
+        {
+            MainWindow.init.OpenPages(new Pages.EquipmentNetwork.Main(this.equipment));
+        }
+
+        private void btnOpenResponsibles(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -300,6 +300,28 @@
                         Margin="20,0"
                         Click="btnOpenSoftware"/>
                     <Button
+                        Visibility="Hidden"
+                        Grid.Row="2"
+                        x:Name="btnNetworkSettings"
+                        Content="Сетевые настройки"
+                        Style="{StaticResource SortButtonStyle}"
+                        Width="150"
+                        Height="35"
+                        HorizontalAlignment="Left"
+                        Margin="180,0"
+                        Click="btnOpenNetwork" Cursor="Hand"/>
+                    <Button
+                        Visibility="Hidden"
+                        Grid.Row="2"
+                        x:Name="btnResponsibles"
+                        Content="Журнал ответственных"
+                        Style="{StaticResource SortButtonStyle}"
+                        Width="150"
+                        Height="35"
+                        HorizontalAlignment="Left"
+                        Margin="340,0"
+                        Click="btnOpenResponsibles"/>
+                    <Button
                         Grid.Row="2"
                         Content="Отменить"
                         Style="{StaticResource SortButtonStyle}"

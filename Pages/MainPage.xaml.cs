@@ -114,7 +114,7 @@ namespace EquipmentAccounting.Pages
                 var navigationButtons = new[]
                 {
                     btnEquipment, btnDirections, btnEquipmentModels, btnEquipmentTypes,
-                    btnStatuses, btnNetworkSettings, btnSoftware, btnDevelopers,
+                    btnStatuses, btnSoftware, btnDevelopers,
                     btnConsumables, btnConsumableSpecs, btnConsumableTypes,
                     btnInventory, btnClassrooms, btnUsers
                 };
@@ -153,11 +153,6 @@ namespace EquipmentAccounting.Pages
         private void btnStatuses_Click(object sender, RoutedEventArgs e)
         {
             // Навигация на страницу статусов
-        }
-
-        private void btnNetworkSettings_Click(object sender, RoutedEventArgs e)
-        {
-            // Навигация на страницу сетевых настроек
         }
 
         // Обработчики для блока Программное обеспечение

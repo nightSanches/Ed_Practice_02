@@ -81,6 +81,7 @@ namespace API.Controllers
                 {
                     Token = newToken,
                     Role = user.Role,
+                    Id = user.Id,
                     FullName = fullName
                 };
 

@@ -14,6 +14,10 @@
         /// Роль пользователя
         /// </summary>
         public string Role { get; set; }
+        /// <summary>
+        /// Id пользователя
+        /// </summary>
+        public int Id { get; set; }
 
         /// <summary>
         /// ФИО пользователя

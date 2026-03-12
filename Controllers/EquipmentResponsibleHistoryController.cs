@@ -67,13 +67,6 @@ namespace API.Controllers
                 return Unauthorized("Недостаточно прав для выполнения операции");
             }
 
-            // Валидация
-            var validationResult = ValidateEquipmentResponsibleHistory(history);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
-
             // Проверка существования оборудования
             var equipmentExists = await _context.Equipment.AnyAsync(e => e.Id == history.EquipmentId);
             if (!equipmentExists)
@@ -139,34 +132,6 @@ namespace API.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private string? ValidateEquipmentResponsibleHistory(EquipmentResponsibleHistory history)
-        {
-            // Проверка обязательных полей
-            if (history.EquipmentId <= 0)
-            {
-                return "ID оборудования должно быть положительным числом";
-            }
-
-            if (history.ResponsibleUserId <= 0)
-            {
-                return "ID ответственного пользователя должно быть положительным числом";
-            }
-
-            // Проверка ID назначающего пользователя (если указан)
-            if (history.AssignedByUserId.HasValue && history.AssignedByUserId.Value <= 0)
-            {
-                return "ID назначающего пользователя должно быть положительным числом";
-            }
-
-            // Проверка длины комментария
-            if (!string.IsNullOrEmpty(history.Comment) && history.Comment.Length > 500)
-            {
-                return "Комментарий не может превышать 500 символов";
-            }
-
-            return null;
         }
     }
 }

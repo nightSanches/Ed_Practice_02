@@ -72,7 +72,7 @@ namespace EquipmentAccounting.Pages.EquipmentType
                 else direction.Name = txtName.Text;
 
                 UpdateDirection();
-                MessageBox.Show("Наименование изменено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Направление изменено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 MainWindow.init.OpenPages(new EquipmentType.Main());
                 this.Close();
             }

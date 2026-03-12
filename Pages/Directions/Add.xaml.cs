@@ -75,7 +75,7 @@ namespace EquipmentAccounting.Pages.Directions
                 else direction.Name = txtName.Text;
 
                 UpdateDirection();
-                MessageBox.Show("Наименование изменено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Направление изменено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 MainWindow.init.OpenPages(new Directions.Main());
                 this.Close();
             }

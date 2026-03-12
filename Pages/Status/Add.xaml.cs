@@ -58,7 +58,7 @@ namespace EquipmentAccounting.Pages.Status
                 direction = temp;
 
                 CreateDirection();
-                MessageBox.Show("Направление добавлено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Статус добавлен", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 MainWindow.init.OpenPages(new Status.Main());
                 this.Close();
             }
@@ -73,7 +73,7 @@ namespace EquipmentAccounting.Pages.Status
                 else direction.Name = txtName.Text;
 
                 UpdateDirection();
-                MessageBox.Show("Наименование изменено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Статус изменен", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 MainWindow.init.OpenPages(new Status.Main());
                 this.Close();
             }

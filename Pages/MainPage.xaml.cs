@@ -142,7 +142,7 @@ namespace EquipmentAccounting.Pages
 
         private void btnEquipmentModels_Click(object sender, RoutedEventArgs e)
         {
-            // Навигация на страницу моделей оборудования
+            MainWindow.init.OpenPages(new Pages.Model.Main());
         }
 
         private void btnEquipmentTypes_Click(object sender, RoutedEventArgs e)

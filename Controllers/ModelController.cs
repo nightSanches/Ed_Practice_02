@@ -39,8 +39,7 @@ namespace API.Controllers
                 return Unauthorized("Недостаточно прав для выполнения операции");
             }
 
-            IQueryable<Model> query = _context.Models
-                .Include(m => m.EquipmentType);
+            IQueryable<Model> query = _context.Models;
 
             // Применение поиска по наименованию
             if (!string.IsNullOrWhiteSpace(search))
@@ -82,9 +81,7 @@ namespace API.Controllers
                 return Unauthorized("Недостаточно прав для выполнения операции");
             }
 
-            var model = await _context.Models
-                .Include(m => m.EquipmentType)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var model = await _context.Models.FindAsync(id);
 
             if (model == null)
             {
@@ -109,13 +106,6 @@ namespace API.Controllers
             if (!await _roleChecker.CanWrite(token))
             {
                 return Unauthorized("Недостаточно прав для выполнения операции");
-            }
-
-            // Валидация
-            var validationResult = await ValidateModel(model);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.ErrorMessage);
             }
 
             // Проверка уникальности наименования модели
@@ -154,12 +144,6 @@ namespace API.Controllers
                 return BadRequest("ID в пути и в теле запроса не совпадают");
             }
 
-            // Валидация
-            var validationResult = await ValidateModel(model);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.ErrorMessage);
-            }
 
             // Проверка уникальности наименования модели (исключая текущую запись)
             if (await _context.Models.AnyAsync(m => m.Name == model.Name && m.Id != id))
@@ -249,31 +233,6 @@ namespace API.Controllers
         private bool ModelExists(int id)
         {
             return _context.Models.Any(e => e.Id == id);
-        }
-
-        private async Task<(bool IsValid, string? ErrorMessage)> ValidateModel(Model model)
-        {
-            // Проверка обязательных полей
-            if (string.IsNullOrWhiteSpace(model.Name))
-            {
-                return (false, "Наименование модели обязательно для заполнения");
-            }
-
-            if (model.Name.Length > 200)
-            {
-                return (false, "Наименование не может превышать 200 символов");
-            }
-
-            // Проверка существования типа оборудования
-            var equipmentTypeExists = await _context.EquipmentTypes
-                .AnyAsync(et => et.Id == model.EquipmentTypeId);
-
-            if (!equipmentTypeExists)
-            {
-                return (false, "Указанный тип оборудования не существует");
-            }
-
-            return (true, null);
         }
     }
 }

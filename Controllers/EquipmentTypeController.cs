@@ -93,12 +93,6 @@ namespace API.Controllers
                 return Unauthorized("Недостаточно прав для выполнения операции");
             }
 
-            // Валидация
-            var validationResult = ValidateEquipmentType(equipmentType);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
 
             // Проверка уникальности наименования
             if (await _context.EquipmentTypes.AnyAsync(e => e.Name == equipmentType.Name))
@@ -136,12 +130,6 @@ namespace API.Controllers
                 return BadRequest("ID в пути и в теле запроса не совпадают");
             }
 
-            // Валидация
-            var validationResult = ValidateEquipmentType(equipmentType);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
 
             // Проверка уникальности наименования (исключая текущую запись)
             if (await _context.EquipmentTypes.AnyAsync(e => e.Name == equipmentType.Name && e.Id != id))
@@ -231,23 +219,6 @@ namespace API.Controllers
         private bool EquipmentTypeExists(int id)
         {
             return _context.EquipmentTypes.Any(e => e.Id == id);
-        }
-
-        private string? ValidateEquipmentType(EquipmentType equipmentType)
-        {
-            // Проверка обязательных полей
-            if (string.IsNullOrWhiteSpace(equipmentType.Name))
-            {
-                return "Наименование типа оборудования обязательно для заполнения";
-            }
-
-            // Проверка длины наименования
-            if (equipmentType.Name.Length > 100)
-            {
-                return "Наименование не может превышать 100 символов";
-            }
-
-            return null;
         }
     }
 }

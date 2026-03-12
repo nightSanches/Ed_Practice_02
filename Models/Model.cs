@@ -18,9 +18,5 @@ namespace API.Models
         [Required(ErrorMessage = "Тип оборудования обязателен для заполнения")]
         [Column("equipment_type_id")]
         public int EquipmentTypeId { get; set; }
-
-        // Навигационное свойство
-        [ForeignKey("EquipmentTypeId")]
-        public EquipmentType? EquipmentType { get; set; }
     }
 }

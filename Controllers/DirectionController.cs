@@ -93,12 +93,6 @@ namespace API.Controllers
                 return Unauthorized("Недостаточно прав для выполнения операции");
             }
 
-            // Валидация
-            var validationResult = ValidateDirection(direction);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
 
             // Проверка уникальности наименования
             if (await _context.Directions.AnyAsync(d => d.Name == direction.Name))
@@ -136,12 +130,6 @@ namespace API.Controllers
                 return BadRequest("ID в пути и в теле запроса не совпадают");
             }
 
-            // Валидация
-            var validationResult = ValidateDirection(direction);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
 
             // Проверка уникальности наименования (исключая текущую запись)
             if (await _context.Directions.AnyAsync(d => d.Name == direction.Name && d.Id != id))
@@ -231,23 +219,6 @@ namespace API.Controllers
         private bool DirectionExists(int id)
         {
             return _context.Directions.Any(e => e.Id == id);
-        }
-
-        private string? ValidateDirection(Direction direction)
-        {
-            // Проверка обязательных полей
-            if (string.IsNullOrWhiteSpace(direction.Name))
-            {
-                return "Наименование направления обязательно для заполнения";
-            }
-
-            // Проверка длины наименования
-            if (direction.Name.Length > 100)
-            {
-                return "Наименование не может превышать 100 символов";
-            }
-
-            return null;
         }
     }
 }

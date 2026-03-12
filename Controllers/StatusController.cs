@@ -90,13 +90,6 @@ namespace API.Controllers
                 return Unauthorized("Недостаточно прав для выполнения операции");
             }
 
-            // Валидация
-            var validationResult = ValidateStatus(status);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
-
             // Проверка уникальности наименования статуса
             if (await _context.Statuses.AnyAsync(s => s.Name == status.Name))
             {
@@ -131,13 +124,6 @@ namespace API.Controllers
             if (id != status.Id)
             {
                 return BadRequest("ID в пути и в теле запроса не совпадают");
-            }
-
-            // Валидация
-            var validationResult = ValidateStatus(status);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
             }
 
             // Проверка уникальности наименования статуса (исключая текущую запись)
@@ -229,23 +215,6 @@ namespace API.Controllers
         private bool StatusExists(int id)
         {
             return _context.Statuses.Any(s => s.Id == id);
-        }
-
-        private string? ValidateStatus(Status status)
-        {
-            // Проверка обязательных полей
-            if (string.IsNullOrWhiteSpace(status.Name))
-            {
-                return "Наименование статуса обязательно для заполнения";
-            }
-
-            // Проверка длины наименования
-            if (status.Name.Length > 100)
-            {
-                return "Наименование статуса не может превышать 100 символов";
-            }
-
-            return null;
         }
     }
 }

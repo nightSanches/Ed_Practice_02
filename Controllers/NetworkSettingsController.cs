@@ -113,11 +113,11 @@ namespace API.Controllers
             }
 
             // Валидация модели
-            var validationResult = ValidateNetworkSettings(networkSettings);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
+            //var validationResult = ValidateNetworkSettings(networkSettings);
+            //if (validationResult != null)
+            //{
+            //    return BadRequest(validationResult);
+            //}
 
             // Проверка существования оборудования
             var equipmentExists = await _context.Equipment.AnyAsync(e => e.Id == networkSettings.EquipmentId);
@@ -163,11 +163,11 @@ namespace API.Controllers
             }
 
             // Валидация модели
-            var validationResult = ValidateNetworkSettings(networkSettings);
-            if (validationResult != null)
-            {
-                return BadRequest(validationResult);
-            }
+            //var validationResult = ValidateNetworkSettings(networkSettings);
+            //if (validationResult != null)
+            //{
+            //    return BadRequest(validationResult);
+            //}
 
             // Проверка существования оборудования
             var equipmentExists = await _context.Equipment.AnyAsync(e => e.Id == networkSettings.EquipmentId);
@@ -237,89 +237,89 @@ namespace API.Controllers
             return _context.NetworkSettings.Any(n => n.Id == id);
         }
 
-        private string? ValidateNetworkSettings(NetworkSettings networkSettings)
-        {
-            // Проверка обязательных полей
-            if (string.IsNullOrWhiteSpace(networkSettings.IpAddress))
-            {
-                return "IP адрес обязателен для заполнения";
-            }
+        //private string? ValidateNetworkSettings(NetworkSettings networkSettings)
+        //{
+        //    // Проверка обязательных полей
+        //    if (string.IsNullOrWhiteSpace(networkSettings.IpAddress))
+        //    {
+        //        return "IP адрес обязателен для заполнения";
+        //    }
 
-            if (string.IsNullOrWhiteSpace(networkSettings.SubnetMask))
-            {
-                return "Маска подсети обязательна для заполнения";
-            }
+        //    if (string.IsNullOrWhiteSpace(networkSettings.SubnetMask))
+        //    {
+        //        return "Маска подсети обязательна для заполнения";
+        //    }
 
-            // Проверка формата IP адреса и диапазона значений
-            if (!IsValidIpAddress(networkSettings.IpAddress))
-            {
-                return "Неверный формат IP адреса. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
-            }
+        //    // Проверка формата IP адреса и диапазона значений
+        //    if (!IsValidIpAddress(networkSettings.IpAddress))
+        //    {
+        //        return "Неверный формат IP адреса. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
+        //    }
 
-            // Проверка формата маски подсети и диапазона значений
-            if (!IsValidIpAddress(networkSettings.SubnetMask))
-            {
-                return "Неверный формат маски подсети. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
-            }
+        //    // Проверка формата маски подсети и диапазона значений
+        //    if (!IsValidIpAddress(networkSettings.SubnetMask))
+        //    {
+        //        return "Неверный формат маски подсети. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
+        //    }
 
-            // Проверка шлюза по умолчанию (если указан)
-            if (!string.IsNullOrWhiteSpace(networkSettings.DefaultGateway))
-            {
-                if (!IsValidIpAddress(networkSettings.DefaultGateway))
-                {
-                    return "Неверный формат шлюза по умолчанию. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
-                }
-            }
+        //    // Проверка шлюза по умолчанию (если указан)
+        //    if (!string.IsNullOrWhiteSpace(networkSettings.DefaultGateway))
+        //    {
+        //        if (!IsValidIpAddress(networkSettings.DefaultGateway))
+        //        {
+        //            return "Неверный формат шлюза по умолчанию. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
+        //        }
+        //    }
 
-            // Проверка основного DNS (если указан)
-            if (!string.IsNullOrWhiteSpace(networkSettings.DnsPrimary))
-            {
-                if (!IsValidIpAddress(networkSettings.DnsPrimary))
-                {
-                    return "Неверный формат основного DNS. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
-                }
-            }
+        //    // Проверка основного DNS (если указан)
+        //    if (!string.IsNullOrWhiteSpace(networkSettings.DnsPrimary))
+        //    {
+        //        if (!IsValidIpAddress(networkSettings.DnsPrimary))
+        //        {
+        //            return "Неверный формат основного DNS. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
+        //        }
+        //    }
 
-            // Проверка вторичного DNS (если указан)
-            if (!string.IsNullOrWhiteSpace(networkSettings.DnsSecondary))
-            {
-                if (!IsValidIpAddress(networkSettings.DnsSecondary))
-                {
-                    return "Неверный формат вторичного DNS. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
-                }
-            }
+        //    // Проверка вторичного DNS (если указан)
+        //    if (!string.IsNullOrWhiteSpace(networkSettings.DnsSecondary))
+        //    {
+        //        if (!IsValidIpAddress(networkSettings.DnsSecondary))
+        //        {
+        //            return "Неверный формат вторичного DNS. Используйте формат: XXX.XXX.XXX.XXX, где XXX от 0 до 255";
+        //        }
+        //    }
 
-            // Проверка MAC адреса (если указан)
-            if (!string.IsNullOrWhiteSpace(networkSettings.MacAddress))
-            {
-                if (!Regex.IsMatch(networkSettings.MacAddress,
-                    @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"))
-                {
-                    return "Неверный формат MAC адреса. Используйте формат: XX:XX:XX:XX:XX:XX или XX-XX-XX-XX-XX-XX";
-                }
-            }
+        //    // Проверка MAC адреса (если указан)
+        //    if (!string.IsNullOrWhiteSpace(networkSettings.MacAddress))
+        //    {
+        //        if (!Regex.IsMatch(networkSettings.MacAddress,
+        //            @"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"))
+        //        {
+        //            return "Неверный формат MAC адреса. Используйте формат: XX:XX:XX:XX:XX:XX или XX-XX-XX-XX-XX-XX";
+        //        }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        private bool IsValidIpAddress(string ipAddress)
-        {
-            // Проверка формата XXX.XXX.XXX.XXX
-            var match = Regex.Match(ipAddress, @"^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$");
-            if (!match.Success)
-                return false;
+        //private bool IsValidIpAddress(string ipAddress)
+        //{
+        //    // Проверка формата XXX.XXX.XXX.XXX
+        //    var match = Regex.Match(ipAddress, @"^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$");
+        //    if (!match.Success)
+        //        return false;
 
-            // Проверка что каждая часть в диапазоне 0-255
-            for (int i = 1; i <= 4; i++)
-            {
-                if (!int.TryParse(match.Groups[i].Value, out int part))
-                    return false;
+        //    // Проверка что каждая часть в диапазоне 0-255
+        //    for (int i = 1; i <= 4; i++)
+        //    {
+        //        if (!int.TryParse(match.Groups[i].Value, out int part))
+        //            return false;
 
-                if (part < 0 || part > 255)
-                    return false;
-            }
+        //        if (part < 0 || part > 255)
+        //            return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
     }
 }

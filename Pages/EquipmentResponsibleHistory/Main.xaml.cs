@@ -23,7 +23,7 @@ namespace EquipmentAccounting.Pages.EquipmentResponsibleHistory
     public partial class Main : Page
     {
         public static Main init;
-        private Models.Equipment equipment;
+        public Models.Equipment equipment;
         public readonly EquipmentResponsibleHistoryService _equipmentResponsibleHistory = new Services.EquipmentResponsibleHistoryService();
         //public readonly SoftwareService _softwareService = new SoftwareService();
         public Main(Models.Equipment equipment)
@@ -67,7 +67,7 @@ namespace EquipmentAccounting.Pages.EquipmentResponsibleHistory
                     foreach (var temp in allEquipmentSoftware)
                     {
                         count++;
-                        var item = new Item(temp, init, count);
+                        var item = new Item(temp, count);
                         parent.Children.Add(item);
                     }
 

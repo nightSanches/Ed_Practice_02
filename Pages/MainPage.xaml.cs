@@ -137,7 +137,7 @@ namespace EquipmentAccounting.Pages
 
         private void btnDirections_Click(object sender, RoutedEventArgs e)
         {
-            // Навигация на страницу направлений
+            MainWindow.init.OpenPages(new Pages.Directions.Main());
         }
 
         private void btnEquipmentModels_Click(object sender, RoutedEventArgs e)
